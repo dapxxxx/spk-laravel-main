@@ -31,6 +31,7 @@ class AuthController extends Controller
 
   public function store(AuthSignUpRequest $request)
   {
+    // dd($request->all());
     $validate = $request->validated();
 
     $validate['password'] = Hash::make($validate['password']);
@@ -42,6 +43,7 @@ class AuthController extends Controller
 
   public function authenticate(AuthSignInRequest $request)
   {
+
     $credentials = $request->validated();
 
     // autentikasi user

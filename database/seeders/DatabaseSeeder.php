@@ -22,5 +22,12 @@ class DatabaseSeeder extends Seeder
       'password' => bcrypt('admin123'),
       'level'    => 'SUPERADMIN'
     ]);
+    User::create([
+      'name'     => 'User1',
+      'username' => 'user1',
+      'email'    => 'user1@spk.com',
+      'password' => bcrypt('user123'),
+    //   'level'    => 'SUPERADMIN'
+    ]);
   }
 }

@@ -28,6 +28,12 @@
           Final Rank
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link {{ Request::is('dashboard/isi-survei') ? 'active' : '' }}" href="/dashboard/isi-survei">
+          <span data-feather="award"></span>
+          Form Question
+        </a>
+      </li>
     </ul>
 
     @can('admin')

@@ -6,6 +6,9 @@
     <link rel="shortcut icon" href="/assets/img/favicon.ico">
     <title>{{ $title }}</title>
 
+     {{-- captcha --}}
+     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <!-- Bootstrap core CSS -->
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
 

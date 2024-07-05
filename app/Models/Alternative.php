@@ -25,6 +25,10 @@ class Alternative extends Model
   {
     return $this->belongsTo(TourismObject::class, 'tourism_object_id');
   }
+  public function criteriaAnalysis()
+  {
+    return $this->belongsTo(CriteriaAnalysis::class);
+  }
 
   public static function getDividerByCriteria($criterias)
   {

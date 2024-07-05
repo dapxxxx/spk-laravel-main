@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardCriteriaComparisonController;
 use App\Http\Controllers\DashboardProfileController;
 use App\Http\Controllers\DashboardRankController;
+use App\Http\Controllers\DashboradQuestionerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,42 +23,47 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('guest')->group(function () {
-  Route::get('/', [AuthController::class, 'index'])->name('login');
-  Route::post('/', [AuthController::class, 'authenticate']);
-  Route::get('/signup', [AuthController::class, 'signUp']);
-  Route::post('/signup', [AuthController::class, 'store']);
+    Route::get('/', [AuthController::class, 'index'])->name('login');
+    Route::post('/', [AuthController::class, 'authenticate']);
+    Route::get('/signup', [AuthController::class, 'signUp']);
+    Route::post('/signup', [AuthController::class, 'store']);
 });
 
 Route::middleware('auth')->group(function () {
-  Route::post('/signout', [AuthController::class, 'signOut']);
+    Route::post('/signout', [AuthController::class, 'signOut']);
 
-  Route::get('/dashboard', function () {
-    return view('dashboard.index', [
-      'title' => 'Dashboard'
-    ]);
-  });
+    Route::get('/dashboard', function () {
+        return view('dashboard.index', [
+            'title' => 'Dashboard'
+        ]);
+    });
 
-  Route::get('dashboard/profile', [DashboardProfileController::class, 'index']);
-  Route::put('dashboard/profile/{user}', [DashboardProfileController::class, 'update']);
+    Route::get('dashboard/profile', [DashboardProfileController::class, 'index']);
+    Route::put('dashboard/profile/{user}', [DashboardProfileController::class, 'update']);
 
-  Route::get('dashboard/criteria-comparisons', [DashboardCriteriaComparisonController::class, 'index']);
-  Route::post('dashboard/criteria-comparisons', [DashboardCriteriaComparisonController::class, 'store']);
+    Route::get('dashboard/criteria-comparisons', [DashboardCriteriaComparisonController::class, 'index']);
+    Route::post('dashboard/criteria-comparisons', [DashboardCriteriaComparisonController::class, 'store']);
 
-  Route::get('dashboard/criteria-comparisons/{criteria_analysis}', [DashboardCriteriaComparisonController::class, 'show']);
+    Route::get('dashboard/criteria-comparisons/{criteria_analysis}', [DashboardCriteriaComparisonController::class, 'show']);
 
-  Route::put('dashboard/criteria-comparisons/{criteria_analysis}', [DashboardCriteriaComparisonController::class, 'updateValue']);
+    Route::put('dashboard/criteria-comparisons/{criteria_analysis}', [DashboardCriteriaComparisonController::class, 'updateValue']);
 
-  Route::delete('dashboard/criteria-comparisons/{criteria_analysis}', [DashboardCriteriaComparisonController::class, 'destroy']);
+    Route::delete('dashboard/criteria-comparisons/{criteria_analysis}', [DashboardCriteriaComparisonController::class, 'destroy']);
 
-  Route::get('dashboard/criteria-comparisons/result/{criteria_analysis}', [DashboardCriteriaComparisonController::class, 'result']);
+    Route::get('dashboard/criteria-comparisons/result/{criteria_analysis}', [DashboardCriteriaComparisonController::class, 'result']);
 
-  Route::get('dashboard/final-ranking', [DashboardRankController::class, 'index']);
-  Route::get('dashboard/final-ranking/{criteria_analysis}', [DashboardRankController::class, 'show']);
+    Route::get('dashboard/final-ranking', [DashboardRankController::class, 'index']);
+    Route::get('dashboard/final-ranking/{criteria_analysis}', [DashboardRankController::class, 'show']);
 
-  Route::resources([
-    'dashboard/tourism-objects' => AdminTourismObjectController::class,
-    'dashboard/criterias'       => AdminCriteriaController::class,
-    'dashboard/users'           => AdminUserController::class,
-    'dashboard/alternatives'    => AdminAlternativeController::class
-  ], ['except' => 'show']);
+    Route::resources([
+        'dashboard/tourism-objects' => AdminTourismObjectController::class,
+        'dashboard/criterias'       => AdminCriteriaController::class,
+        'dashboard/users'           => AdminUserController::class,
+        // 'dashboard/questioner'      => DashboradQuestionerController::class,
+        'dashboard/alternatives'    => AdminAlternativeController::class
+    ], ['except' => 'show']);
+
+    Route::get('dashboard/isi-survei', [DashboradQuestionerController::class, 'pageOne'])->name('survey.pageOne');
+    Route::post('dashboard/isi-survei/page-two', [DashboradQuestionerController::class, 'pageTwo'])->name('survey.pageTwo');
+    Route::post('dashboard/isi-survei/submit', [DashboradQuestionerController::class, 'submit'])->name('survey.submit');
 });
